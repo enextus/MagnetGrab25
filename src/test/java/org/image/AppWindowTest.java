@@ -18,11 +18,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.awt.image.BufferedImage;
 
 public class AppWindowTest {
-    private AppWindow appWindow;
 
     @BeforeEach
     public void setUp() {
-        appWindow = new AppWindow();
+        AppWindow appWindow = new AppWindow();
     }
 
     /**

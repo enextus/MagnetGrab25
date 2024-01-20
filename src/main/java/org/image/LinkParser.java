@@ -150,6 +150,7 @@ public class LinkParser {
      *
      * @param magnetLink The magnet link to be opened in the default torrent client
      */
+// Java
     static void openMagnetLinkInTorrentClient(String magnetLink, Desktop desktop) {
         try {
             // Checking if the BROWSE action is supported by the Desktop class on the current platform
@@ -160,7 +161,7 @@ public class LinkParser {
                 desktop.browse(magnetURI);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Failed to open the magnet link. Check if a default application is set to handle magnet links.", e);
         }
     }
 

@@ -1,3 +1,13 @@
+package org.image;
+
+import java.awt.image.BufferedImage;
+
+import java.io.IOException;
+
+import static org.image.ImgProvider.getRandomImagePath;
+import static org.image.LoggerUtil.logSelectedImage;
+import static org.image.LoggerUtil.logURL;
+
 /**
  * The App class serves as the main class for the "Magnet Opener" application, which is responsible for selecting,
  * reading, decoding, and displaying random images from a specified image directory. The class consists of the following components:
@@ -10,31 +20,8 @@
  * The application reads image paths from a properties file (img.properties) within the specified directory, decodes Base64-encoded images,
  * and displays them in a window.
  */
-
-//
-// The App class serves as the main class for the "Magnet Opener" application, which is responsible for selecting,
-// reading, decoding, and displaying random images from a specified image directory. The class consists of the following components:
-// Constants: LOGGER for logging, IMAGE_DIRECTORY for specifying the image directory, and RANDOM for generating random numbers.
-// main method: The entry point of the application, which handles the image processing and display.
-// getRandomImagePath method: Selects and returns a random image path from the specified directory.
-// logURL method: Logs the provided URL.
-// readResourceFileToString method: Reads a resource file and returns its content as a string.
-// logSelectedImage method: Logs the path of the selected image.
-// The application reads image paths from a properties file (img.properties) within the specified directory, decodes Base64-encoded images,
-// and displays them in a window.
-//
-//
-package org.image;
-
-import java.awt.image.BufferedImage;
-
-import java.io.IOException;
-
-import static org.image.ImgProvider.getRandomImagePath;
-import static org.image.LoggerUtil.logSelectedImage;
-import static org.image.LoggerUtil.logURL;
-
 public class App {
+
     /**
      * The main method serves as the entry point for the "Magnet Opener" application. It performs the following steps:
      * Logs that the application is running.
@@ -48,6 +35,7 @@ public class App {
         logURL("App \"MaLO - ((Magnet Links Opener))\" running");
         String randomImagePath = getRandomImagePath();
         System.out.println("randomImagePath: " + randomImagePath);
+
         try {
             String base64ImageString = ImgProvider.readResourceFileToString(randomImagePath);
             BufferedImage imageDecode = ImgProcessor.decodeBase64ToImage(base64ImageString);
@@ -63,6 +51,7 @@ public class App {
         } catch (IOException e) {
             logURL("Failed to read resource file: " + randomImagePath);
         }
+
     }
 
 }
