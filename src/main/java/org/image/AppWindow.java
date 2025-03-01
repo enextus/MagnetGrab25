@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class AppWindow {
-    private static final String FRAME = "MaLO © Magnet Links Opener 2023";
+    private static final String FRAME = "MaLO © Magnet Links Opener 2023, MagnetGrab25 2025";
     private static final Color BACKGROUND_COLOR = Color.BLACK;
     private static final Color TEXT_COLOR = new Color(255, 215, 0); // Gold
     private static final int NULLIS = 0;
