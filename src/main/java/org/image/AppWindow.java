@@ -9,9 +9,13 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.logging.*;
 
+/**
+ * Main application window with an additional log display feature.
+ */
 public class AppWindow {
-    private static final String FRAME = "MaLO © Magnet Links Opener 2023, MagnetGrab25 2025";
+    private static final String FRAME = "MagnetGrab25 2025 * MaLO © Magnet Links Opener 2023, MagnetGrab25 2025";
     private static final Color BACKGROUND_COLOR = Color.BLACK;
     private static final Color TEXT_COLOR = new Color(255, 215, 0); // Gold
     private static final int NULLIS = 0;
@@ -44,16 +48,7 @@ public class AppWindow {
     private static final Dimension RIGID_AREA_DIMENSION_VERTICAL = new Dimension(NULLIS, VERTICAL_SPACING);
     private static JTextArea magnetLinksTextArea;
     private static JLabel numberLabel = new JLabel(Integer.toString(LinkParser.getNumberOfFoundLinks()));
-
-    private static JPanel createButtonPanel() {
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setOpaque(false);
-        buttonPanel.add(createNumberPanel());
-        buttonPanel.add(Box.createRigidArea(RIGID_AREA_DIMENSION_VERTICAL));
-        buttonPanel.add(createInputPanel());
-        return buttonPanel;
-    }
+    private static LogWindow logWindow; // Reference to the log window
 
     static {
         urlField.addMouseListener(new MouseAdapter() {
@@ -67,18 +62,26 @@ public class AppWindow {
             private void showContextMenu(MouseEvent e) {
                 JPopupMenu contextMenu = new JPopupMenu();
                 JMenuItem pasteMenuItem = new JMenuItem(CONTEXT_MENU_PASTE);
-                pasteMenuItem.addActionListener(e1 -> {
-                    urlField.paste();
-                });
+                pasteMenuItem.addActionListener(e1 -> urlField.paste());
                 contextMenu.add(pasteMenuItem);
                 contextMenu.show(e.getComponent(), e.getX(), e.getY());
             }
         });
     }
 
+    private static JPanel createButtonPanel() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setOpaque(false);
+        buttonPanel.add(createNumberPanel());
+        buttonPanel.add(Box.createRigidArea(RIGID_AREA_DIMENSION_VERTICAL));
+        buttonPanel.add(createInputPanel());
+        return buttonPanel;
+    }
+
     private static void enterUrl() {
         String urlString = urlField.getText();
-        LoggerUtil.logURL(urlString);
+        LoggerUtil.logURL(urlString); // Assuming LoggerUtil is available
 
         try {
             URI uri = new URI(urlString);
@@ -86,15 +89,12 @@ public class AppWindow {
                 URL url = uri.toURL();
                 LinkParser.parseUrl(url.toString());
             } else {
-                JOptionPane.showMessageDialog(null,
-                        INVALID_URL_MESSAGE, ERROR_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, INVALID_URL_MESSAGE, ERROR_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         } catch (URISyntaxException e) {
-            JOptionPane.showMessageDialog(null,
-                    ERROR_MESSAGE_URL_SYNTAX, ERROR_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ERROR_MESSAGE_URL_SYNTAX, ERROR_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
         } catch (MalformedURLException e) {
-            JOptionPane.showMessageDialog(null,
-                    ERROR_MESSAGE_URL_MALFORMED, ERROR_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ERROR_MESSAGE_URL_MALFORMED, ERROR_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -110,6 +110,11 @@ public class AppWindow {
             JFrame frame = createMainFrame();
             JPanel centerPanel = createCenterPanel(colorImage);
             JPanel textAreaPanel = createTextAreaPanel();
+
+            JButton showLogButton = new JButton("Show Log");
+            showLogButton.addActionListener(e -> logWindow.setVisible(true));
+            frame.add(showLogButton, BorderLayout.NORTH);
+
             frame.add(centerPanel, BorderLayout.CENTER);
             frame.add(textAreaPanel, BorderLayout.SOUTH);
             frame.pack();
@@ -117,17 +122,26 @@ public class AppWindow {
             frame.setVisible(true);
             startTimer();
             urlField.requestFocusInWindow();
+
+            logWindow = new LogWindow();
+            logWindow.setVisible(false);
+
+            Logger rootLogger = Logger.getLogger("");
+            TextAreaHandler handler = new TextAreaHandler(logWindow);
+            handler.setFormatter(new SimpleFormatter());
+            rootLogger.addHandler(handler);
+            rootLogger.setLevel(Level.INFO); // Changed from Level.ALL to Level.INFO
         });
     }
 
     private static void configureLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
-                 UnsupportedLookAndFeelException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     private static JFrame createMainFrame() {
         JFrame frame = new JFrame(FRAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -135,6 +149,7 @@ public class AppWindow {
         frame.setResizable(false);
         return frame;
     }
+
     private static JPanel createCenterPanel(BufferedImage colorImage) {
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
@@ -144,9 +159,9 @@ public class AppWindow {
         JPanel buttonPanel = createButtonPanel();
         originalImageLabel.setLayout(new BorderLayout());
         originalImageLabel.add(buttonPanel, BorderLayout.CENTER);
-
         return centerPanel;
     }
+
     private static JPanel createNumberPanel() {
         numberLabel = new JLabel(Integer.toString(LinkParser.getNumberOfFoundLinks()));
         numberLabel.setFont(new Font(FONT_NAME, FONT_STYLE, FONT_SIZE));
@@ -158,6 +173,7 @@ public class AppWindow {
         numberPanel.add(numberLabel);
         return numberPanel;
     }
+
     private static JPanel createUrlPanel() {
         urlField.setColumns(URL_FIELD_COLUMNS);
         JPanel urlPanel = new JPanel();
@@ -166,14 +182,15 @@ public class AppWindow {
         urlPanel.add(urlField);
         urlPanel.setMaximumSize(URL_PANEL_DIMENSION);
         urlPanel.setPreferredSize(URL_PANEL_DIMENSION);
-
         return urlPanel;
     }
+
     private static JButton createOkButton() {
         JButton jButton = new JButton(OK_BUTTON_TEXT);
         jButton.addActionListener(e -> enterUrl());
         return jButton;
     }
+
     private static JButton createSearchTopButton() {
         JButton searchButton = new JButton(TOP_BUTTON_LABEL);
         searchButton.addActionListener(e -> {
@@ -182,15 +199,16 @@ public class AppWindow {
         });
         return searchButton;
     }
+
     private static JButton createSearchNewButton() {
         JButton searchButton = new JButton(NEW_BUTTON_LABEL);
         searchButton.addActionListener(e -> {
             urlField.setText(DEFAULT_URL);
-            ;
             enterUrl();
         });
         return searchButton;
     }
+
     private static JPanel createInputPanel() {
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
@@ -213,7 +231,6 @@ public class AppWindow {
         inputPanel.add(topPanel);
         inputPanel.add(Box.createRigidArea(RIGID_AREA_DIMENSION_VERTICAL));
         inputPanel.add(bottomPanel);
-
         return inputPanel;
     }
 
@@ -237,7 +254,6 @@ public class AppWindow {
         JPanel textAreaPanel = new JPanel();
         textAreaPanel.setLayout(new BorderLayout());
         textAreaPanel.add(scrollPane, BorderLayout.NORTH);
-
         return textAreaPanel;
     }
 
@@ -248,4 +264,56 @@ public class AppWindow {
         timer.start();
     }
 
+    // Inner class for the log window
+    public static class LogWindow extends JFrame {
+        private JTextArea logTextArea;
+
+        public LogWindow() {
+            super("Log Window");
+            setSize(800, 600);
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+            logTextArea = new JTextArea();
+            logTextArea.setEditable(false);
+            logTextArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
+
+            JScrollPane scrollPane = new JScrollPane(logTextArea);
+            add(scrollPane, BorderLayout.CENTER);
+        }
+
+        public void appendLog(String message) {
+            SwingUtilities.invokeLater(() -> {
+                logTextArea.append(message + "\n");
+                logTextArea.setCaretPosition(logTextArea.getDocument().getLength());
+            });
+        }
+    }
+
+    // Custom Handler to redirect logs to the JTextArea
+    public static class TextAreaHandler extends Handler {
+        private final LogWindow logWindow;
+
+        public TextAreaHandler(LogWindow logWindow) {
+            this.logWindow = logWindow;
+        }
+
+        @Override
+        public void publish(LogRecord record) {
+            if (isLoggable(record)) {
+                String message = getFormatter().format(record);
+                logWindow.appendLog(message);
+            }
+        }
+
+        @Override
+        public void flush() {
+            // No-op
+        }
+
+        @Override
+        public void close() throws SecurityException {
+            // No-op
+        }
+    }
 }

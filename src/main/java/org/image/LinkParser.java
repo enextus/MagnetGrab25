@@ -13,12 +13,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.net.ssl.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Desktop;
 import java.io.InputStream;
 import java.net.URI;
-
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -111,9 +113,25 @@ public class LinkParser {
      * @param url The URL to be parsed for magnet links
      */
     public static void parseUrl(String url) {
-
         isSearching = true;
         try {
+            // Настройка SSL для обхода проверки сертификатов
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, new TrustManager[]{new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+            }}, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+            // Настройка HostnameVerifier для принятия всех имен хостов
+            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+
+            // Устанавливаем соединение с помощью Jsoup
             Document doc = Jsoup.connect(url).get();
             Elements magnetLinks = doc.select(CSS_SELECTOR_MAGNET);
 
@@ -131,12 +149,11 @@ public class LinkParser {
                 executorService.shutdown();
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.log(Level.SEVERE, "An error occurred while connecting to the URL", e);
             e.printStackTrace();
         }
     }
-
 
     /**
      * Opens the given magnet link in the default torrent client installed on the user's system.
@@ -150,7 +167,6 @@ public class LinkParser {
      *
      * @param magnetLink The magnet link to be opened in the default torrent client
      */
-// Java
     static void openMagnetLinkInTorrentClient(String magnetLink, Desktop desktop) {
         try {
             // Checking if the BROWSE action is supported by the Desktop class on the current platform
@@ -164,5 +180,4 @@ public class LinkParser {
             logger.log(Level.SEVERE, "Failed to open the magnet link. Check if a default application is set to handle magnet links.", e);
         }
     }
-
 }
