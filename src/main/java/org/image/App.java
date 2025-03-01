@@ -9,7 +9,7 @@ import static org.image.LoggerUtil.logSelectedImage;
 import static org.image.LoggerUtil.logURL;
 
 /**
- * The App class serves as the main class for the "Magnet Opener" application, which is responsible for selecting,
+ * The App class serves as the main class for the "MagnetGrab25" application, which is responsible for selecting,
  * reading, decoding, and displaying random images from a specified image directory. The class consists of the following components:
  * - Constants: LOGGER for logging, IMAGE_DIRECTORY for specifying the image directory, and RANDOM for generating random numbers.
  * - main method: The entry point of the application, which handles the image processing and display.
