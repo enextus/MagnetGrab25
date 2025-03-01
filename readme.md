@@ -1,14 +1,14 @@
-# The App class serves as the main class for the "Magnet Opener" application
+# The App class serves as the main class for the "MagnetGrab25" application
 
-The App class serves as the main class for the "Magnet Opener" application
+The App class serves as the main class for the "MagnetGrab25" application
 
 ## Features
 
-The App class serves as the main class for the "Magnet Opener" application
+The App class serves as the main class for the "MagnetGrab25" application
 
 ## Prerequisites
 
-To run the  "Magnet Opener", you need to have Java Development Kit (JDK) installed on your computer. You can download the JDK from the official Oracle website: https://www.oracle.com/java/technologies/javase-downloads.html
+To run the  "MagnetGrab25", you need to have Java Development Kit (JDK) installed on your computer. You can download the JDK from the official Oracle website: https://www.oracle.com/java/technologies/javase-downloads.html
 
 ## How to run
 
