@@ -17,6 +17,11 @@
               <mainClass>org.image.App</mainClass>
             </manifest>
           </archive>
+          <excludes>
+            <exclude>ch/qos/logback/**</exclude>
+            <exclude>org/slf4j/**</exclude>
+            <exclude>org/jsoup/**</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -37,6 +42,7 @@
                     <exclude>META-INF/*.DSA</exclude>
                     <exclude>META-INF/*.RSA</exclude>
                     <exclude>META-INF/MANIFEST.MF</exclude>
+                    <exclude>module-info.class</exclude>
                   </excludes>
                 </filter>
               </filters>
@@ -143,10 +149,10 @@
     </dependency>
   </dependencies>
   <properties>
-    <maven.compiler.target>20</maven.compiler.target>
+    <maven.compiler.target>21</maven.compiler.target>
     <junit-jupiter.version>5.9.2</junit-jupiter.version>
     <jetbrains.version>24.0.1</jetbrains.version>
-    <maven.compiler.source>20</maven.compiler.source>
+    <maven.compiler.source>21</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <mockito-junit-jupiter.version>5.2.0</mockito-junit-jupiter.version>
   </properties>

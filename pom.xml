@@ -80,6 +80,9 @@
 
     <build>
         <plugins>
+
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -92,6 +95,11 @@
                             <mainClass>org.image.App</mainClass>
                         </manifest>
                     </archive>
+                    <excludes>
+                        <exclude>ch/qos/logback/**</exclude>
+                        <exclude>org/slf4j/**</exclude>
+                        <exclude>org/jsoup/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -113,6 +121,7 @@
                                         <exclude>META-INF/*.DSA</exclude>
                                         <exclude>META-INF/*.RSA</exclude>
                                         <exclude>META-INF/MANIFEST.MF</exclude>
+                                        <exclude>module-info.class</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
@@ -128,6 +137,7 @@
                     </execution>
                 </executions>
             </plugin>
+
 
         </plugins>
     </build>
