@@ -23,7 +23,7 @@ import static org.image.LoggerUtil.logURL;
 public class App {
 
     /**
-     * The main method serves as the entry point for the "Magnet Opener" application. It performs the following steps:
+     * The main method serves as the entry point for the "MagnetGrab25" application. It performs the following steps:
      * Logs that the application is running.
      * Retrieves a random image path using getRandomImagePath() method.
      * Reads the image file as a Base64-encoded string using readResourceFileToString() method.
@@ -32,7 +32,7 @@ public class App {
      * If the image decoding fails, an error message is printed to the console.
      */
     public static void main(String[] args) {
-        logURL("App \"MaLO - ((Magnet Links Opener))\" running");
+        logURL("App \"MaLO - ((Magnet Links Opener MagnetGrab25))\" running");
         String randomImagePath = getRandomImagePath();
         System.out.println("randomImagePath: " + randomImagePath);
 
