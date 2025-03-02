@@ -180,4 +180,3 @@ public class LinkParser {
             logger.log(Level.SEVERE, "Failed to open the magnet link. Check if a default application is set to handle magnet links.", e);
         }
     }
-}
