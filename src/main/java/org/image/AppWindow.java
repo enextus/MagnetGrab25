@@ -15,7 +15,7 @@ import java.util.logging.*;
  * Main application window with an additional log display feature.
  */
 public class AppWindow {
-    private static final String FRAME = "MagnetGrab25 2025 * MaLO © Magnet Links Opener 2023, MagnetGrab25 2025";
+    private static final String FRAME = "25H1MagnetGrabber 2025 * MaLO © Magnet Links Opener 2023, 25H1MagnetGrabber 2025";
     private static final Color BACKGROUND_COLOR = Color.BLACK;
     private static final Color TEXT_COLOR = new Color(255, 215, 0); // Gold
     private static final int NULLIS = 0;
@@ -266,7 +266,7 @@ public class AppWindow {
 
     // Inner class for the log window
     public static class LogWindow extends JFrame {
-        private JTextArea logTextArea;
+        private final JTextArea logTextArea;
 
         public LogWindow() {
             super("Log Window");
