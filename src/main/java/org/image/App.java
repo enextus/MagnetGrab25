@@ -9,7 +9,7 @@ import static org.image.LoggerUtil.logSelectedImage;
 import static org.image.LoggerUtil.logURL;
 
 /**
- * The App class serves as the main class for the "MagnetGrab25" application, which is responsible for selecting,
+ * The App class serves as the main class for the "25H1MagnetGrabber" application, which is responsible for selecting,
  * reading, decoding, and displaying random images from a specified image directory. The class consists of the following components:
  * - Constants: LOGGER for logging, IMAGE_DIRECTORY for specifying the image directory, and RANDOM for generating random numbers.
  * - main method: The entry point of the application, which handles the image processing and display.
@@ -23,7 +23,7 @@ import static org.image.LoggerUtil.logURL;
 public class App {
 
     /**
-     * The main method serves as the entry point for the "MagnetGrab25" application. It performs the following steps:
+     * The main method serves as the entry point for the "25H1MagnetGrabber" application. It performs the following steps:
      * Logs that the application is running.
      * Retrieves a random image path using getRandomImagePath() method.
      * Reads the image file as a Base64-encoded string using readResourceFileToString() method.
@@ -32,7 +32,7 @@ public class App {
      * If the image decoding fails, an error message is printed to the console.
      */
     public static void main(String[] args) {
-        logURL("App \"MaLO - ((Magnet Links Opener MagnetGrab25))\" running");
+        logURL("App \"25H1 MagnetGrabber * MaLO - Magnet Links Opener 25H1MagnetGrabber\" running");
         String randomImagePath = getRandomImagePath();
         System.out.println("randomImagePath: " + randomImagePath);
 
