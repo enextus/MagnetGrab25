@@ -258,9 +258,7 @@ public class AppWindow {
     }
 
     private static void startTimer() {
-        Timer timer = new Timer(TIMER_DELAY, e -> {
-            numberLabel.setText(Integer.toString(LinkParser.getNumberOfFoundLinks()));
-        });
+        Timer timer = new Timer(TIMER_DELAY, e -> numberLabel.setText(Integer.toString(LinkParser.getNumberOfFoundLinks())));
         timer.start();
     }
 
