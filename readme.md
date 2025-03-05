@@ -1,14 +1,14 @@
-# The App class serves as the main class for the "MagnetGrab25" application
+# The App class serves as the main class for the "25H1MagnetGrabber" application
 
-The App class serves as the main class for the "MagnetGrab25" application
+The App class serves as the main class for the "25H1MagnetGrabber" application
 
 ## Features
 
-The App class serves as the main class for the "MagnetGrab25" application
+The App class serves as the main class for the "25H1MagnetGrabber" application
 
 ## Prerequisites
 
-To run the  "MagnetGrab25", you need to have Java Development Kit (JDK) installed on your computer. You can download the JDK from the official Oracle website: https://www.oracle.com/java/technologies/javase-downloads.html
+To run the  "25H1MagnetGrabber", you need to have Java Development Kit (JDK) installed on your computer. You can download the JDK from the official Oracle website: https://www.oracle.com/java/technologies/javase-downloads.html
 
 ## How to run
 
