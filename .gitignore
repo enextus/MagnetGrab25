@@ -52,3 +52,5 @@ logs/app.log
 =======
 logs/app.log
 >>>>>>> works003
+
+### git rm --cached logs/app.log
