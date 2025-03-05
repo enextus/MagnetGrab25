@@ -21,7 +21,6 @@ public class AppWindowTest {
 
     @BeforeEach
     public void setUp() {
-        AppWindow appWindow = new AppWindow();
     }
 
     /**
@@ -41,8 +40,7 @@ public class AppWindowTest {
      */
     @Test
     public void testDecodeBase64ToImage_nullBase64String() {
-        String nullBase64ImageString = null;
-        assertThrows(NullPointerException.class, () -> ImgProcessor.decodeBase64ToImage(nullBase64ImageString),
+        assertThrows(NullPointerException.class, () -> ImgProcessor.decodeBase64ToImage(null),
                 "decodeBase64ToImage should throw NullPointerException when decoding a null Base64 string");
     }
 
