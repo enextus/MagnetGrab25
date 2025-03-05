@@ -164,7 +164,7 @@ public class AppWindow {
 
     private static JPanel createNumberPanel() {
         numberLabel = new JLabel(Integer.toString(LinkParser.getNumberOfFoundLinks()));
-        numberLabel.setFont(new Font(FONT_NAME, FONT_STYLE, FONT_SIZE));
+        numberLabel.setFont(new Font(FONT_NAME, Font.PLAIN, FONT_SIZE));
         numberLabel.setForeground(TEXT_COLOR);
         JPanel numberPanel = new JPanel();
         numberPanel.setLayout(new BoxLayout(numberPanel, BoxLayout.X_AXIS));
