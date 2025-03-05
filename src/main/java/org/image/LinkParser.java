@@ -68,10 +68,6 @@ public class LinkParser {
 
     private static volatile boolean isSearching = true;
 
-    public static void stopSearching() {
-        isSearching = false;
-    }
-
     /**
      * Processes a magnet link by incrementing the counter for the number of found magnet links,
      * extracting the "href" attribute from the link element, printing the link and number of found
@@ -149,11 +145,15 @@ public class LinkParser {
                 executorService.shutdown();
             }
 
-        } catch (Exception e) {
+/*        } catch (Exception e) {
             logger.log(Level.SEVERE, "An error occurred while connecting to the URL", e);
-            e.printStackTrace();
-        }
+            e.printStackTrace();*/
+        } catch (Exception e) {
+        logger.log(Level.SEVERE, "An error occurred while connecting to the URL", e);
+        // Removed printStackTrace(); relying on logger instead.
     }
+
+}
 
     /**
      * Opens the given magnet link in the default torrent client installed on the user's system.
@@ -180,4 +180,5 @@ public class LinkParser {
             logger.log(Level.SEVERE, "Failed to open the magnet link. Check if a default application is set to handle magnet links.", e);
         }
     }
+
 }
