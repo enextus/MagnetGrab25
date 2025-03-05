@@ -18,7 +18,7 @@ public class ImgProcessor {
      */
     public static BufferedImage scaleImageForPreview(BufferedImage source) {
         final int maxSize = 512;
-        // Avoid upscaling if the image is already within maxSize bounds
+        // Avoid up scaling if the image is already within maxSize bounds
         if (source.getWidth() <= maxSize && source.getHeight() <= maxSize) {
             return source; // Return original image unchanged
         }
@@ -48,4 +48,5 @@ public class ImgProcessor {
             return null;
         }
     }
+
 }

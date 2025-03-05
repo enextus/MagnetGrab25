@@ -142,6 +142,7 @@ public class AppWindow {
         }
     }
 
+
     private static JFrame createMainFrame() {
         JFrame frame = new JFrame(FRAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -314,3 +315,5 @@ public class AppWindow {
             // No-op
         }
     }
+
+}
