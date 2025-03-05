@@ -24,7 +24,6 @@ public class AppWindow {
     private static final int URL_FIELD_COLUMNS = 5;
     private static final int URL_PANEL_WIDTH = 300;
     private static final String FONT_NAME = "Arial";
-    private static final int FONT_STYLE = Font.PLAIN;
     private static final int FONT_SIZE = 53;
     private static final int TEXT_AREA_ROWS = 10;
     private static final int TEXT_AREA_COLUMNS = 33;
@@ -36,7 +35,6 @@ public class AppWindow {
     private static final String OK_BUTTON_TEXT = "OK";
     private static final String ERROR_DIALOG_TITLE = "Issue!";
     private static final String INVALID_URL_MESSAGE = "Invalid URL. Please enter a valid URL.";
-    private static final String PASTE_MENU_ITEM_TEXT = "Paste";
     private static final String CLEAR_BUTTON_TEXT = "Clear";
     private static final String ERROR_MESSAGE_URL_SYNTAX = "URL could not be parsed. Please check the URL.";
     private static final String ERROR_MESSAGE_URL_MALFORMED = "URL is malformed. Please check the URL.";
@@ -133,6 +131,8 @@ public class AppWindow {
             rootLogger.setLevel(Level.INFO); // Changed from Level.ALL to Level.INFO
         });
     }
+
+    private static final Logger logger = Logger.getLogger(AppWindow.class.getName());
 
     private static void configureLookAndFeel() {
         try {
