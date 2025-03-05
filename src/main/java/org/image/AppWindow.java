@@ -138,7 +138,7 @@ public class AppWindow {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Failed to set the look and feel.", e);
         }
     }
 
