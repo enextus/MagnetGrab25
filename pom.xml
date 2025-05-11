@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.image</groupId>
@@ -9,102 +10,109 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <!-- Java compiler -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit-jupiter.version>5.9.2</junit-jupiter.version>
-        <jetbrains.version>24.0.1</jetbrains.version>
-        <mockito-junit-jupiter.version>5.2.0</mockito-junit-jupiter.version>
+
+        <!-- libraries -->
+        <junit.jupiter.version>5.12.2</junit.jupiter.version>
+        <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
+
+        <mockito-inline.version>5.0.2</mockito-inline.version>
+        <mockito-inline.version>5.2.0</mockito-inline.version>
+        <logback.version>1.5.18</logback.version>
+        <slf4j.version>2.0.17</slf4j.version>
+        <jsoup.version>1.20.1</jsoup.version>
+        <mockito.version>5.17.0</mockito.version>
+
+        <!-- plugins -->
+        <jacoco.version>0.8.13</jacoco.version>
+        <maven.jar.plugin.version>3.4.2</maven.jar.plugin.version>
+        <maven.shade.plugin.version>3.6.0</maven.shade.plugin.version>
     </properties>
 
     <dependencies>
+        <!-- JUnit 5 (агрегат содержит API + Engine) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>${junit-jupiter.version}</version>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- JetBrains @Annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>${jetbrains.version}</version>
+            <version>${jetbrains.annotations.version}</version>
             <scope>provided</scope>
         </dependency>
 
+        <!-- Mockito -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>${mockito-junit-jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.5.16</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.11.3</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.11.3</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.14.2</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.36</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.18.1</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-inline</artifactId>
-            <version>5.2.0</version>
+            <version>${mockito-inline.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!-- HTML parser -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-
+            <!-- JaCoCo -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.11</version>
+                <version>${jacoco.version}</version>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
+                        <goals><goal>prepare-agent</goal></goals>
                     </execution>
                     <execution>
                         <id>report</id>
                         <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
+                        <goals><goal>report</goal></goals>
                     </execution>
                 </executions>
             </plugin>
 
+            <!-- JAR packaging -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.4.2</version>
+                <version>${maven.jar.plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -120,16 +128,17 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <!-- Uber-jar / shading -->
+            <!-- Укороченный фрагмент плагина без <check> -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>${maven.shade.plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
+                        <goals><goal>shade</goal></goals>
                         <configuration>
                             <filters>
                                 <filter>
@@ -139,24 +148,24 @@
                                         <exclude>META-INF/*.DSA</exclude>
                                         <exclude>META-INF/*.RSA</exclude>
                                         <exclude>META-INF/MANIFEST.MF</exclude>
+                                        <exclude>META-INF/**</exclude>
                                         <exclude>module-info.class</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
+
+                            <!-- минимизация JAR -->
+                            <minimizeJar>true</minimizeJar>
+
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.image.App</mainClass>
-                                    <manifestEntries>
-                                        <Build-Number>1.0</Build-Number>
-                                    </manifestEntries>
                                 </transformer>
                             </transformers>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
-
         </plugins>
     </build>
 </project>
