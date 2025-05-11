@@ -16,15 +16,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- libraries -->
-        <junit.jupiter.version>5.12.2</junit.jupiter.version>
+        <junit.jupiter.version>5.12.0</junit.jupiter.version>
         <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
-
-        <mockito-inline.version>5.0.2</mockito-inline.version>
-        <mockito-inline.version>5.2.0</mockito-inline.version>
         <logback.version>1.5.18</logback.version>
         <slf4j.version>2.0.17</slf4j.version>
         <jsoup.version>1.20.1</jsoup.version>
-        <mockito.version>5.17.0</mockito.version>
+        <mockito.version>5.12.0</mockito.version>
 
         <!-- plugins -->
         <jacoco.version>0.8.13</jacoco.version>
@@ -62,12 +59,7 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-inline</artifactId>
-            <version>${mockito-inline.version}</version>
-            <scope>test</scope>
-        </dependency>
+
 
         <!-- Logging -->
         <dependency>
